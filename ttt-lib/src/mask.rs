@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub struct Mask(pub usize);
 
 impl std::cmp::PartialEq<usize> for Mask {
@@ -17,7 +17,7 @@ impl Mask {
   /// set a single bit at index
   ///
   /// ```
-  /// # use ttt_lib::bitmask::Mask;
+  /// # use ttt_lib::mask::Mask;
   ///
   /// let mask = Mask(1);
   ///
@@ -31,7 +31,7 @@ impl Mask {
   /// set bits within an exclusive range
   ///
   /// ```
-  /// # use ttt_lib::bitmask::Mask;
+  /// # use ttt_lib::mask::Mask;
   ///
   /// let mask = Mask(1);
   ///
@@ -45,7 +45,7 @@ impl Mask {
   /// see if one mask is a subset of another
   ///
   /// ```
-  /// # use ttt_lib::bitmask::Mask;
+  /// # use ttt_lib::mask::Mask;
   ///
   /// let mask = Mask(0b1100);
   ///
@@ -58,7 +58,7 @@ impl Mask {
   /// see invert masked bits
   ///
   /// ```
-  /// # use ttt_lib::bitmask::Mask;
+  /// # use ttt_lib::mask::Mask;
   ///
   /// let mask = Mask(0b110010);
   ///
