@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+  "ttt",
+  "ttt-lib"
+]
