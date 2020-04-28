@@ -13,6 +13,31 @@ impl std::fmt::Display for Mask {
   }
 }
 
+impl std::ops::BitOr<usize> for Mask {
+  type Output = Self;
+
+  // rhs is the "right-hand side" of the expression `a | b`
+  fn bitor(self, rhs: usize) -> Self {
+    Self(self.0 | rhs)
+  }
+}
+
+impl std::ops::BitAnd<usize> for Mask {
+  type Output = Self;
+
+  fn bitand(self, rhs: usize) -> Self {
+    Self(self.0 & rhs)
+  }
+}
+
+impl std::ops::BitXor<usize> for Mask {
+  type Output = Self;
+
+  fn bitxor(self, rhs: usize) -> Self {
+    Self(self.0 ^ rhs)
+  }
+}
+
 impl Mask {
   /// set a single bit at index
   ///
@@ -23,9 +48,8 @@ impl Mask {
   ///
   /// assert_eq!(mask.set_bit_at(1), 0b000011)
   /// ```
-  pub fn set_bit_at(mut self, index: usize) -> Self {
-    self.0 = self.0 | 1 << index;
-    self
+  pub fn set_bit_at(self, index: usize) -> Self {
+    self | 1 << index
   }
 
   /// set bits within an exclusive range
@@ -37,9 +61,8 @@ impl Mask {
   ///
   /// assert_eq!(mask.set_bit_range(2, 4), 0b0001101)
   /// ```
-  pub fn set_bit_range(mut self, start: usize, finish: usize) -> Self {
-    self.0 = self.0 | (1 << finish) - (1 << start);
-    self
+  pub fn set_bit_range(self, start: usize, finish: usize) -> Self {
+    self | (1 << finish) - (1 << start)
   }
 
   /// see if one mask is a subset of another
@@ -64,8 +87,7 @@ impl Mask {
   ///
   /// assert_eq!(mask.invert_by_mask(0b101010), 0b011000)
   /// ```
-  pub fn invert_by_mask(mut self, mask: usize) -> Self {
-    self.0 = self.0 ^ mask;
-    self
+  pub fn invert_by_mask(self, mask: usize) -> Self {
+    self ^ mask
   }
 }
