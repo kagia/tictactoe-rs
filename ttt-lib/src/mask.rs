@@ -15,8 +15,6 @@ impl std::fmt::Display for Mask {
 
 impl std::ops::BitOr<usize> for Mask {
   type Output = Self;
-
-  // rhs is the "right-hand side" of the expression `a | b`
   fn bitor(self, rhs: usize) -> Self {
     Self(self.0 | rhs)
   }
@@ -35,6 +33,30 @@ impl std::ops::BitXor<usize> for Mask {
 
   fn bitxor(self, rhs: usize) -> Self {
     Self(self.0 ^ rhs)
+  }
+}
+
+impl std::ops::BitOr for Mask {
+  type Output = Self;
+
+  fn bitor(self, rhs: Self) -> Self {
+    Self(self.0 | rhs.0)
+  }
+}
+
+impl std::ops::BitAnd for Mask {
+  type Output = Self;
+
+  fn bitand(self, rhs: Self) -> Self {
+    Self(self.0 & rhs.0)
+  }
+}
+
+impl std::ops::BitXor for Mask {
+  type Output = Self;
+
+  fn bitxor(self, rhs: Self) -> Self {
+    Self(self.0 ^ rhs.0)
   }
 }
 
@@ -74,7 +96,7 @@ impl Mask {
   ///
   /// assert_eq!(mask.has_bits_set(0b100), true)
   /// ```
-  pub fn has_bits_set(&self, mask: usize) -> bool {
+  pub fn has_bits_set(self, mask: usize) -> bool {
     self.0 & mask == mask
   }
 
