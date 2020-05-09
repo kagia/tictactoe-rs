@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, Copy)]
+#[derive(Default, Debug, Clone, Copy)]
 pub struct Mask(pub usize);
 
 impl std::cmp::PartialEq<usize> for Mask {
@@ -84,7 +84,7 @@ impl Mask {
   /// assert_eq!(mask.set_bit_range(2, 4), 0b0001101)
   /// ```
   pub fn set_bit_range(self, start: usize, finish: usize) -> Self {
-    self | (1 << finish) - (1 << start)
+    self | ((1 << finish) - (1 << start))
   }
 
   /// see if one mask is a subset of another
