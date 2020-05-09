@@ -81,8 +81,17 @@ impl Board {
   /// let mut board = Board::new();
   ///
   ///
-  /// let board = Board(Mask(0b000_111_000), Mask(0b110_000_100));
+  /// let mut board = Board(Mask(0b000_111_000), Mask(0b110_000_100));
   /// assert_eq!(board.get_result(), Some(GameResult::XWIN));
+  ///
+  /// board = Board(Mask(0b110_000_100), Mask(0b000_111_000));
+  /// assert_eq!(board.get_result(), Some(GameResult::YWIN));
+  ///
+  /// board = Board(Mask(0b101_101_010), Mask(0b010_010_101));
+  /// assert_eq!(board.get_result(), Some(GameResult::DRAW));
+  ///
+  /// board = Board(Mask(0b000_110_000), Mask(0b110_000_100));
+  /// assert_eq!(board.get_result(), None);
   /// ```
   pub fn get_result(&self) -> Option<GameResult> {
     let Self(x, o) = self;
